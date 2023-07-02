@@ -1,0 +1,8 @@
+C:\Users\macar\source\repos\CameraSystem\CameraSystem\obj\Debug\CameraSystem.csproj.AssemblyReference.cache
+C:\Users\macar\source\repos\CameraSystem\CameraSystem\obj\Debug\CameraSystem.csproj.SuggestedBindingRedirects.cache
+C:\Users\macar\source\repos\CameraSystem\CameraSystem\obj\Debug\CameraSystem.csproj.CoreCompileInputs.cache
+C:\Users\macar\source\repos\CameraSystem\CameraSystem\bin\Debug\CameraSystem.exe.config
+C:\Users\macar\source\repos\CameraSystem\CameraSystem\bin\Debug\CameraSystem.exe
+C:\Users\macar\source\repos\CameraSystem\CameraSystem\bin\Debug\CameraSystem.pdb
+C:\Users\macar\source\repos\CameraSystem\CameraSystem\obj\Debug\CameraSystem.exe
+C:\Users\macar\source\repos\CameraSystem\CameraSystem\obj\Debug\CameraSystem.pdb
