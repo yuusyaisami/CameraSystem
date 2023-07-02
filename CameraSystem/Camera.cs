@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* camera system class
+ * 作者:        Yuisami
+ * 目的:        二次配列を効率よく描写し、手間を省く
+ * バージョン:  v1.0.0
+ */
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -36,6 +41,7 @@ namespace CameraSystem
         /// <param name="wide_size">マップの横幅</param>
         public static void Create(string map_name, int height_size, int wide_size)
         {
+            //マップの初期化
             for (int i = 0; i < 1024; i++)
             {
                 map[i] = new int[1024];
@@ -44,6 +50,7 @@ namespace CameraSystem
                     map[i][j] = 0;
                 }
             }
+            //前回値マップの初期化
             for (int i = 0; i < 1024; i++)
             {
                 map_old[i] = new int[1024];
@@ -73,7 +80,7 @@ namespace CameraSystem
         /// <summary>
         /// マップを表示する関数
         /// </summary>
-        public static void View()
+        public static void View() //ただ描写するだけの関数
         {
             for (int i = 0; i < map_height; i++)
             {
@@ -95,21 +102,21 @@ namespace CameraSystem
         /// <summary>
         /// 前回のマップと変わった部分のみ変更する関数
         /// </summary>
-        public static void ReView()
+        public static void ReView()//Viewを使用した後に使用するべき関数
         {
             for (int i = 0; i < map_height; i++)
             {
                 for (int j = 0; j < map_width; j++)
                 {
-                    if (map[i][j] != map_old[i][j])
+                    if (map[i][j] != map_old[i][j]) //前回と変更があったら
                     {
                         for (int k = 0; k < 1024; k++)
                         {
                             if (map[i][j] == k)
                             {
-                                Console.SetCursorPosition(j * 2, i);
-                                Console.WriteLine(character[k]);
-                                map_old[i][j] = map[i][j];
+                                Console.SetCursorPosition(j * 2, i); //変更点の座標にカーソルを移動
+                                Console.WriteLine(character[k]); //書き換える
+                                map_old[i][j] = map[i][j]; //前回値マップを更新
                                 break;
                             }
                         }
@@ -134,45 +141,42 @@ namespace CameraSystem
             //カメラの座標が変わったか
             if (first_position_x != camera_posi_x)
             {
-                //変わっていたらフラッグを立てる
-                changelog_flag = true;
+                changelog_flag = true; //変わっていたらフラッグを立てる
                 camera_posi_x = first_position_x;
             }
             if (first_position_y != camera_posi_y)
             {
-                camera_posi_y = first_position_y;
+                camera_posi_y = first_position_y; //変わっていたらフラッグを立てる
                 changelog_flag = true;
             }
 
             for (int i = 0; ; i++)
             {
-                //マップのサイズがオーバーしているか
                 if (map_height >= first_position_y + height - i)
                 {
-                    //サイズがオーバーしていたら、最大値を入力
                     height = first_position_y + height - i;
                     break;
                 }
             }
             for (int i = 0; ; i++)
             {
-                if (map_width >= first_position_x + width - i)
+                if (map_width >= first_position_x + width - i) //マップのサイズがオーバーしているか
                 {
-                    width = first_position_x + width - i;
+                    width = first_position_x + width - i; //サイズがオーバーしていたら、最大値を入力
                     break;
                 }
             }
-            if (height != camera_height)
+            if (height != camera_height) //高さが変わったか
             {
-                camera_height = height;
-                changelog_flag = true;
+                camera_height = height; //更新
+                changelog_flag = true; //変わっていたらフラッグを立てる
             }
             if (width != camera_width)
             {
-                camera_width = width;
-                changelog_flag = true;
+                camera_width = width; 
+                changelog_flag = true;//変わっていたらフラッグを立てる
             }
-            //前回と変更があったか確認する
+            //前回と変更があったか確認する この関数は残しておくが使わない
             /*
             for (int i = first_position_y; i < height; i++)
             {
@@ -204,7 +208,7 @@ namespace CameraSystem
                     string String = "";
                     for(int a = 0; a < cursor_position_x * character_size; a++)
                     {
-                        String += " ";
+                        String += " "; //カーソンの移動分だけスペースを置く
                     }
                     for (int j = first_position_x; j < width; j++)
                     {
@@ -212,18 +216,17 @@ namespace CameraSystem
                         {
                             if (map[i][j] == k)
                             {
-                                String += character[k];
+                                String += character[k]; 
                                 break;
                             }
                         }
                         map_old[i][j] = map[i][j];
                     }
-                    Console.WriteLine(String);
-                    
+                    Console.WriteLine(String); //i行の文字を出力する
+
                 }
             }
-            //変更された部分のみ書き換える このプログラムはプレイヤーが画面を動かすと正常に動かない、
-            
+            //変更された部分のみ書き換える
             for (int i = first_position_y; i < height; i++)
             {
                 for (int j = first_position_x; j < width; j++)
@@ -234,7 +237,7 @@ namespace CameraSystem
                         {
                             if (map[i][j] == k)
                             {
-                                Console.SetCursorPosition(((j * character_size) + (cursor_position_x * character_size)) - first_position_x * character_size, (cursor_position_y + i) - first_position_y);
+                                Console.SetCursorPosition(((j * character_size) + (cursor_position_x * character_size)) - first_position_x * character_size, (cursor_position_y + i) - first_position_y); //変更された部分のみ書き換える
                                 Console.WriteLine(character[k]);
                                 map_old[i][j] = map[i][j];
                                 break;
@@ -244,7 +247,7 @@ namespace CameraSystem
                 }
             }
             
-            Console.SetCursorPosition(0, 0);
+            Console.SetCursorPosition(0, 0); //意味はないが、最初に戻る
         }
         /// <summary>
         /// 表示させたいテキストを指定の座標に出力する関数
@@ -258,6 +261,7 @@ namespace CameraSystem
             Console.Write(text);
             Console.SetCursorPosition(0, map_height);
         }
+        //考え中
         public static void WriteTexts(string textname, int x, int y, string text)
         {
 
